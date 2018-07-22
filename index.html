@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Sea Battle</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Gaegu|Indie+Flower" rel="stylesheet">
+
+	<link rel="stylesheet" href="style.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+<div class="sky"><div class="cloud"></div><div class="cloud"></div><div class="cloud"></div><div class="cloud"></div><div class="cloud"></div><div class="cloud"></div><div class="cloud"></div></div>
+<header>
+	<h1>Морской бой</h1>
+	<h6>Sea battle</h6>
+</header>
+<section>
+	<div id="leftFieldText"><p>Игрок</p>
+		<div id="leftText"></div>
+		<div id="leftField">
+			<div id="leftShade">
+			</div>
+		</div><div id="leftTextLeft"></div>	
+	</div>
+	<div id="rightFieldText"><p>Компьютер</p>
+		<div id="rightText"></div>
+		<div id="rightField">
+			<div id="rightShade">
+			</div>
+		</div><div id="rightTextLeft"></div>
+	</div>
+</section>
+<div id="sea">
+<div class="seaWaves"></div>
+<div id="info"></div>
+<nav>
+	<ul><li id=reload>Старт</li><li onclick="emptyCellsToField('#leftField');emptyCellsToField('#rightField');">Очистить</li><li onclick="getName()">Переименовать</li><li onclick="$('#helpContainer').toggle();" title="Помощь">Помощь</li></ul>
+</nav>
+<div id="yourName"><div>
+	<span><p>Введите имя игрока</p></span>
+	<input type="text" id="name" value="Игрок" />
+	<button onclick="getName()">OK</button>
+</div></div>
+<button onclick="colorToField('dd',true)" id="showEnemy">Показать противника</button>
+</div>
+<div id="helpContainer" onclick="$('#helpContainer').toggle();">
+	<div>
+		<h3>Помощь</h3>
+		<p>Правое поле - поле противника.
+		</p><p>
+		Нажатие левой кнопки мыши - выстрел;
+		</p><p>
+		Нажатие правой кнопки мыши - поставить флажок.
+		</p>
+		Нажмите в любое место, чтобы закрыть справку.
+	</div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

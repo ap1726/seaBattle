@@ -1,0 +1,392 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Indie Flower','Gaegu', cursive;
+    /*transition:0.2s linear;*/
+}
+body {
+  text-align:center;
+  padding: 0;
+  margin: 0;
+  overflow-x:hidden; 
+}
+header {
+	position: relative;
+}
+h1, h6{
+	font-size: 2em;
+	color:rgb(0, 153, 255);
+	text-shadow: 3px 5px rgba(100,100,100,0.3);
+	margin: 0;
+	padding: 0;
+	z-index: 99;
+}
+h6{
+	font-size: 1em;
+	text-shadow: none;
+}
+nav ul {
+	display: block;
+	padding: 0;
+}
+nav ul li {
+	display: inline-block;
+	list-style: none;
+	width:150px;
+	cursor: pointer;
+	border: 1px solid #333;
+	border-radius: 5px;
+	background: #ddd;
+}
+nav ul li:hover {
+	background: rgb(100,100,100);
+}
+nav ul li:nth-child(4){
+	cursor:help;
+}
+section div {
+	display: inline-block;
+	width: 300px;
+	height: 300px;
+	margin-right: 30px;
+}
+#leftFieldText p, #rightFieldText p{
+	text-decoration: underline;
+}
+#leftTextLeft, #rightTextLeft,#leftText, #rightText{
+	display: inline-block;
+	position: relative;
+	display: block;
+	color:#000;
+}
+#leftTextLeft, #rightTextLeft{
+	width: 30px;
+	height: 300px;
+	left: -30px;
+	top:-305px;
+}
+#leftText, #rightText{
+	width: 300px;
+	height: 30px;
+	top: 0px;
+}
+#leftText span, #rightText span,#leftTextLeft span, #rightTextLeft span{
+	width: 30px;
+	height: 30px;
+	display: block;
+	color: #000;
+	position: relative;
+	float: left;
+}
+.cell {
+	border: 1px solid #000; 
+	border-top:0px;
+	border-left:0px;
+	display: inline-block;
+	width:30px;
+	height:30px;
+	float:left;
+	background: #ddd;
+	cursor: crosshair;
+}
+.cell:hover {
+	opacity:0.5;
+}
+.waterColor{
+	background-color: rgb(0, 153, 255);
+}
+#blinkText{
+	color:rgb(0,0,0);
+	animation: blinkText 1s cubic-bezier(0.42,0,0.58,1) infinite;
+}
+@keyframes blinkText{
+	0% {
+		opacity:1;
+	}
+	70%{
+		opacity:0;
+	}
+	100%{
+		opacity:1;
+	}
+}
+.cellColor{
+	background-color: rgb(0, 153, 255);
+}
+.cellColor:after{
+	content: '';
+	display: block;
+	position: relative;
+	width: 30px;
+	height: 30px;
+	border-radius: 100%;
+	background-image: radial-gradient(transparent,rgb(0, 0, 255), transparent, rgb(0, 0, 255), transparent);
+}
+.fireColor {
+	background-color: rgb(0, 153, 255);
+}
+.fireColor:after{
+	content:'';
+	display: block;
+	position: relative;
+	width: 30px;
+	height: 10px;
+	border-radius: 0 0 12px 12px;
+	background-color:rgb(113, 63, 18);
+	margin: 0;
+}
+.fireColor:before{
+	content:'';
+	display: block;
+	position: relative;
+	width: 25px;
+	height: 20px;
+	border-radius: 0 50px 0 0;
+	border-left:15px solid rgb(0, 153, 255);
+	background-color:rgb(255, 255, 255);
+	margin: 0;
+	box-sizing: border-box;
+	animation:fire 2s ease infinite;
+}
+@keyframes fire{
+	0%{
+		background-color: rgb(255, 255, 255);
+		width:25px;
+	}
+	50%{
+		background-color: rgb(255, 0, 0);
+		width:22px;
+	}
+	100%{
+		background-color: rgb(255, 255, 255);
+		width:25px;
+	}
+}
+.ship{}
+.shipColor {
+	background-color:rgb(0, 153, 255);
+}
+.shipColor:after{
+	content:'';
+	display: block;
+	position: relative;
+	width: 30px;
+	height: 10px;
+	border-radius: 0 0 12px 12px;
+	background-color:rgb(113, 63, 18);
+	margin: 0;
+}
+.shipColor:before{
+	content:'';
+	display: block;
+	position: relative;
+	width: 25px;
+	height: 20px;
+	border-radius: 0 50px 0 0;
+	border-left:15px solid rgb(0, 153, 255);
+	background-color:rgb(255, 255, 255);
+	margin: 0;
+	box-sizing: border-box;
+	animation:shipMove 2s ease infinite;
+}
+@keyframes shipMove {
+	0%{
+		width:25px;
+	}
+	50%{
+		width:22px;
+	}
+	100%{
+		width:25px;
+	}
+}
+.flagColor{
+	background-color: rgb(255, 255, 100);
+}
+.flagColor:before{
+	content: '';
+	display: block;
+	position: relative;
+	width:15px;
+	height: 10px;
+	top:5px;
+	left: 10px;
+	background-color: rgb(0, 255, 0);
+}
+.flagColor:after{
+	content: '';
+	display: block;
+	position: relative;
+	height: 20px;
+	width: 2px;
+	top:-5px;
+	left: 10px;
+	background-color: rgb(113, 63, 18);
+}
+.sky{
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+.cloud {
+display: inline-block;
+position: relative;
+width: 3em; height: 3em; margin: 2em;
+background: #D5DEE9;
+border-width: 0.25em;
+border-style: solid;
+border-color: #6E839E;
+border-radius: 50% 50% 0 0;}
+
+.cloud:before, .cloud:after {
+content: "";
+position: absolute; 
+bottom: -0.25em;
+background: inherit;
+border-width: 0.25em;
+border-style: solid;
+border-color: #6E839E;}
+.cloud:before {
+left: 80%; 
+width: 60%; height: 60%;
+border-left: none;
+border-radius: 50% 50% 50% 0;}
+.cloud:after {
+right: 80%;
+width: 80%; height: 80%;
+border-right: none;
+border-radius: 50% 50% 0;}
+.sky div:nth-child(1n){
+	left:10px;
+	-webkit-animation: skyMove 20s linear infinite;
+	-o-animation: skyMove 20s linear infinite;
+	animation: skyMove 20s linear infinite;
+}
+.sky div:nth-child(2n){
+	left:10px;
+	-webkit-animation: skyMove2 20s linear infinite;
+	-o-animation: skyMove2 20s linear infinite;
+	animation: skyMove2 20s linear infinite;
+}
+@keyframes skyMove{
+	0%{
+		left:+48%;
+		top:-10px;
+	}
+	50%{
+		left:-48%;
+		top:+10px
+	}
+	100%{
+		left:+48%;
+		top:-10px;
+	}
+}
+@keyframes skyMove2{
+	0%{
+		left:-48%;
+		top:-0px;
+	}
+	50%{
+		left:52%;
+		top:-10px
+	}
+	100%{
+		left:-48%;
+		top:10px;
+	}
+}
+#sea {
+	background: linear-gradient( rgb(0, 153, 255),  rgb(255, 255, 255));
+}
+.seaWaves {
+  height: 10px;
+  position: relative;
+}
+.seaWaves:after {
+	content: "";
+	position: absolute;
+	left: 0;
+	top:0;
+	bottom: -2px;
+	right: 0;
+	background-repeat: repeat;
+	height: 10px;
+	background-size: 20px 20px;
+	background-image: radial-gradient(circle at 10px -5px, #fff 13px, transparent 12px);
+	animation: waves 3s linear infinite;
+}
+@keyframes waves {
+	0%{
+		left: 0;
+	}
+	50%{
+		left: -10px;
+	}
+	100%{
+		left: 0;
+	}
+}
+#rightShade,
+#leftShade {
+	display: block;
+	width: 300px;
+	height: 300px;
+	background: #000;
+	position: relative;
+	opacity: 0.1;
+}
+#rightShade{
+	display: none;
+}
+#yourName, #helpContainer {
+	text-align: center;
+	display: block;
+	position: fixed;
+	margin: 0 auto;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(#eee,transparent,#eee,#eee);
+	left:0;
+	top: 0;
+}
+#helpContainer {
+	display: none;
+}
+#yourName div, #helpContainer div{
+	width: 300px;
+	height: 100px;
+	background: #aaa;
+	margin: 100px auto;
+	border-radius: 5px;
+	padding: 5px;
+}
+#helpContainer div{
+	height: auto;
+}
+#helpContainer div div{
+	width: 30px;
+	height: 30px;
+	margin: 0;
+	padding: 0;
+	position: relative;
+	display: inline-block;
+	left: 0;
+	top:0;
+}
+#showEnemy {
+	background: transparent;
+	border: none;
+	cursor: help;
+	opacity: 0.3;
+}
+#showEnemy:hover{
+	opacity: 1;
+}
+@media screen and (max-width: 980px) {
+	nav ul li {
+		width: 100%;	
+	}
+	.sky{
+		display: none;
+	}
+}
