@@ -128,11 +128,11 @@ function shot(cell, x){
 	}
 		if (x){
 			$(cell).removeClass('shipColor waterColor cellColor fireColor').addClass('fireColor');
-			checkWinner('#rightField');
 		}
 		else{
 			$(cell).removeClass('shipColor waterColor cellColor fireColor').addClass('cellColor');
 		}
+	checkWinner();
 }
 // функция выстрела компьютера
 function computerShot(){
@@ -145,21 +145,15 @@ function computerShot(){
 	// удаляется ячейка из массива
 	arrCellsNumbers.splice(i,1);
 	var cell='#leftField #cell'+arrCellsNumbers[i];
-	if(randomInteger(0,5)>1 && $(cell).hasClass('waterColor')){
-		console.log('fffff');
-		for(var i=0; i<arrCellsNumbers.length; i++){
-			if($('#cell'+arrCellsNumbers[i]).hasClass('.shipColor')) {
-				cell='#cell'+arrCellsNumbers[i];
-				arrCellsNumbers.splice(i,1);
-				console.log(cell);
-			}
-		}
+	if(randomInteger(0,5)>$('select').val() && $(cell).hasClass('waterColor')){
+		cell='#' + $('.shipColor:first').attr('id');
+		console.log(cell);
+		arrCellsNumbers.splice(i,1);
 	}
 	// задается задержка чтобы показать что противник думает
 	setTimeout(function(){
 			if($(cell).hasClass('ship')){
 				$(cell).removeClass('shipColor waterColor cellColor fireColor').addClass('fireColor');
-				checkWinner('#leftField');
 				computerShot('boom',i);
 			}
 			else {
@@ -181,24 +175,32 @@ function whoseShot(x){
 		$('#leftShade').toggle();
 		$('#rightShade').toggle();
 	}
+	checkWinner();
 }
 // функция проверяет остались ли непотопленные корабли чтобы выявить победителя
 // получает на вход id поля
-function checkWinner(field){
+function checkWinner(){
 	var winner;
-	winner=0;
+	comp=0;
+	gamer=0;
 	for (var i=0; i<100; i++){
-		if($(field+' #cell'+i).hasClass('fireColor')) winner++;
+		if($('#rightField #cell'+i).hasClass('fireColor')) gamer++;
+		if($('#leftField #cell'+i).hasClass('fireColor')) comp++;
 	}
-		if (winner<20){
+		if (gamer<20 && comp<20){
 			console.log('winner not');
 		}
-		else {
-			var name=(field=='#leftShade')?'Компьютер':nameGamer;
+		else if(gamer>19 && comp<20) {
 			$('#info').html('<p><h3 id="blinkText">Игрок '+name+' победил!<br>Нажмите "Старт" для новой игры</h3></p>');
 			colorToField(' ',true);
 			$('#leftShade').show();
 			$('#rightShade').show();
+		}
+		else {
+			$('#info').html('<p><h3 id="blinkText">Компьютер победил!<br>Нажмите "Старт" для новой игры</h3></p>');
+			colorToField(' ',true);
+			$('#leftShade').show();
+			$('#rightShade').show();	
 		}
 }
 // функция для изменения цвета ячеек

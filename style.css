@@ -29,7 +29,7 @@ h6{
 }
 nav ul {
 	display: block;
-	padding:0;
+	padding: 0;
 }
 /*кнопки навигации*/
 nav ul li {
@@ -53,6 +53,9 @@ section div {
 	width: 300px;
 	height: 300px;
 	margin-right: 30px;
+}
+#level{
+	
 }
 /*заголовки игровых полей*/
 #leftFieldText p, 
