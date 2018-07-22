@@ -2,7 +2,17 @@ var lengthShip;
 var count;
 var arrCellsNumbers=[];
 var nameGamer;
+var topText=['а','б','в','г','д','е','ж','з','и','к'];
+var leftText=['1','2','3','4','5','6','7','8','9','10']
 for(var i=0;i<100;i++) arrCellsNumbers[i]=i;//создаем массив для ходов компьютера
+// функция нанесения надписей слева и справа от полей
+// получает на вход left или right
+function addTextToPositioning(id){
+	for(var i=0;i<10;i++){
+		$('#'+id+'TextLeft').append('<span>'+leftText[i]+'</span>');
+		$('#'+id+'Text').append('<span>'+topText[i]+'</span>');
+	}
+}
 $('#reload').click(function(){//по клику создается поле боя
 	emptyCellsToField('#leftField');//очищается левое поле
 	emptyCellsToField('#rightField');//очищается правое поле
@@ -28,12 +38,14 @@ $('#reload').click(function(){//по клику создается поле бо
 	colorToField('#rightField');
 	whoseShot(1);
 });
+// функция расстановки частей кораблей
+// получает на вход номер ячейки и id поля
 function addShipPart(numberCell, field){
+	// массив ближайших ячеек для закрашивания водой
 	var arrAround=[numberCell-1,numberCell-10,numberCell+10,numberCell-1-10,numberCell-1+10,numberCell+1,numberCell+1-10,numberCell+1+10];
 	var lengthArrAround;
 	if(Math.floor(numberCell%10)<9)	lengthArrAround=arrAround.length;
-	else lengthArrAround=arrAround.length-3;
-
+	else lengthArrAround=arrAround.length-3;//если справого края поля
 	for(var i=0;i<lengthArrAround;i++){
 		var cell=$(field+' #cell'+arrAround[i]);
 		cell.hasClass('shipColor')?0:cell.removeClass('shipColor waterColor cellColor fireColor').addClass('waterColor');
@@ -41,6 +53,8 @@ function addShipPart(numberCell, field){
 	$(field+' #cell'+numberCell).removeClass('shipColor waterColor cellColor fireColor').addClass('shipColor');
 	$(field+' #cell'+numberCell).addClass('ship');
 };
+//функция для получения позиции частей корабля в виде массива
+//на вход подается количество палуб и поле(левое или правое)
 function randomizer(x, field){
 	var out=[];
 	var direction=randomInteger(0,1);
@@ -68,22 +82,30 @@ function randomizer(x, field){
 	}
 	return out;
 };
+// функция получает имя пользователя из инпута
 function getName(){
 	nameGamer=$('input').val();
 	$('#yourName').toggle();
 	$('#info').html('<p><h3 id="blinkText">'+nameGamer+', для начала игры нажмите "Старт"</h3></p>');
 }
+// функция выдает случайное целое число
+// на вход подается предел снизу и сверху
 function randomInteger(min, max) {
     var rand = min + Math.random() * (max + 1 - min);
     rand = Math.floor(rand);
     return rand;
 };
+// функция заполняет поле элементами span
+// на вход подается поле(левое или правое)
 function emptyCellsToField(field){
 	$(field).empty();
 	for (var i=0; i<100; i++){
 		$(field).append('<span class="cell cellColor" id=cell'+i+'  oncontextmenu="blocker('+i+');return false" ></span>');
 	}
 };
+//функция вызывается при нажатии на ячейку и 
+//ставит флажок для обозначения ячейки куда не нужно стрелять
+//получает на вход номер ячейки
 function blocker(i){
 	if($('#rightField #cell'+i).hasClass('flagColor')){
 		$('#rightField #cell'+i).removeClass('flagColor');
@@ -93,6 +115,8 @@ function blocker(i){
 		$('#rightField #cell'+i).addClass('flagColor');
 	}
 }
+// функция выстрела игрока
+// получает на вход id поля+ячейки и boolean значение (true-попал, false-мимо)
 function shot(cell, x){
 	if($(cell).hasClass('flagColor')){return false;}
 	if(($(cell).hasClass('fireColor'))||
@@ -110,6 +134,7 @@ function shot(cell, x){
 			$(cell).removeClass('shipColor waterColor cellColor fireColor').addClass('cellColor');
 		}
 }
+// функция выстрела компьютера
 function computerShot(){
 	whoseShot(0);
 	var i=randomInteger(0,arrCellsNumbers.length-1);
@@ -117,6 +142,7 @@ function computerShot(){
 		i=arguments[1];
 		if(Math.floor(i/10)>9) i=arguments[1]-1;
 	}
+	// удаляется ячейка из массива
 	arrCellsNumbers.splice(i,1);
 	var cell='#leftField #cell'+arrCellsNumbers[i];
 	if(randomInteger(0,5)>1 && $(cell).hasClass('waterColor')){
@@ -124,13 +150,12 @@ function computerShot(){
 		for(var i=0; i<arrCellsNumbers.length; i++){
 			if($('#cell'+arrCellsNumbers[i]).hasClass('.shipColor')) {
 				cell='#cell'+arrCellsNumbers[i];
-	arrCellsNumbers.splice(i,1);
-		console.log(cell);
-
-				break;
+				arrCellsNumbers.splice(i,1);
+				console.log(cell);
 			}
 		}
 	}
+	// задается задержка чтобы показать что противник думает
 	setTimeout(function(){
 			if($(cell).hasClass('ship')){
 				$(cell).removeClass('shipColor waterColor cellColor fireColor').addClass('fireColor');
@@ -145,6 +170,8 @@ function computerShot(){
 		whoseShot(1);
 }, 400);
 }
+// функция отображения надписи чей ход 
+// получает на вход true(ход игрока) или false(ход компьютера)
 function whoseShot(x){
 	if(x){
 		$('#info').html("<p><h3>Ваш ход</h3></p>");
@@ -155,6 +182,8 @@ function whoseShot(x){
 		$('#rightShade').toggle();
 	}
 }
+// функция проверяет остались ли непотопленные корабли чтобы выявить победителя
+// получает на вход id поля
 function checkWinner(field){
 	var winner;
 	winner=0;
@@ -172,6 +201,8 @@ function checkWinner(field){
 			$('#rightShade').show();
 		}
 }
+// функция для изменения цвета ячеек
+// на вход получает id поля
 function colorToField(field){
 	for (var i=0; i<100; i++){
 		if(arguments[1]){
@@ -200,14 +231,7 @@ function colorToField(field){
 		}	
 	}
 };
-var topText=['а','б','в','г','д','е','ж','з','и','к'];
-var leftText=['1','2','3','4','5','6','7','8','9','10']
-function addTextToPositioning(id){
-	for(var i=0;i<10;i++){
-		$('#'+id+'TextLeft').append('<span>'+leftText[i]+'</span>');
-		$('#'+id+'Text').append('<span>'+topText[i]+'</span>');
-	}
-}
+
 emptyCellsToField('#leftField');
 emptyCellsToField('#rightField');
 $('.cell').removeClass('cellColor');

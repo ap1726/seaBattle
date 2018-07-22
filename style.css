@@ -1,7 +1,6 @@
 * {
     box-sizing: border-box;
     font-family: 'Indie Flower','Gaegu', cursive;
-    /*transition:0.2s linear;*/
 }
 body {
   text-align:center;
@@ -9,8 +8,12 @@ body {
   margin: 0;
   overflow-x:hidden; 
 }
+a{
+	text-decoration: none;
+	color: #000;
+}
 header {
-	position: relative;
+	position: relative;/*чтобы облака оставались за надписью*/
 }
 h1, h6{
 	font-size: 2em;
@@ -26,8 +29,8 @@ h6{
 }
 nav ul {
 	display: block;
-	padding: 0;
 }
+/*кнопки навигации*/
 nav ul li {
 	display: inline-block;
 	list-style: none;
@@ -40,6 +43,7 @@ nav ul li {
 nav ul li:hover {
 	background: rgb(100,100,100);
 }
+/*кнопка помощи*/
 nav ul li:nth-child(4){
 	cursor:help;
 }
@@ -49,16 +53,23 @@ section div {
 	height: 300px;
 	margin-right: 30px;
 }
-#leftFieldText p, #rightFieldText p{
+/*заголовки игровых полей*/
+#leftFieldText p, 
+#rightFieldText p{
 	text-decoration: underline;
 }
-#leftTextLeft, #rightTextLeft,#leftText, #rightText{
+/*надписи клеток для позиционирования слева и сверху*/
+#leftTextLeft, 
+#rightTextLeft,
+#leftText, 
+#rightText{
 	display: inline-block;
 	position: relative;
 	display: block;
 	color:#000;
 }
-#leftTextLeft, #rightTextLeft{
+#leftTextLeft, 
+#rightTextLeft{
 	width: 30px;
 	height: 300px;
 	left: -30px;
@@ -69,6 +80,7 @@ section div {
 	height: 30px;
 	top: 0px;
 }
+/*цифра и буква появляется средствами js отдельно*/
 #leftText span, #rightText span,#leftTextLeft span, #rightTextLeft span{
 	width: 30px;
 	height: 30px;
@@ -77,6 +89,7 @@ section div {
 	position: relative;
 	float: left;
 }
+/*параметры ячейки*/
 .cell {
 	border: 1px solid #000; 
 	border-top:0px;
@@ -91,23 +104,13 @@ section div {
 .cell:hover {
 	opacity:0.5;
 }
+/*классы цветов и эффектов*/
 .waterColor{
 	background-color: rgb(0, 153, 255);
 }
 #blinkText{
 	color:rgb(0,0,0);
 	animation: blinkText 1s cubic-bezier(0.42,0,0.58,1) infinite;
-}
-@keyframes blinkText{
-	0% {
-		opacity:1;
-	}
-	70%{
-		opacity:0;
-	}
-	100%{
-		opacity:1;
-	}
 }
 .cellColor{
 	background-color: rgb(0, 153, 255);
@@ -131,7 +134,7 @@ section div {
 	width: 30px;
 	height: 10px;
 	border-radius: 0 0 12px 12px;
-	background-color:rgb(113, 63, 18);
+	background-color:rgb(30, 0, 0);
 	margin: 0;
 }
 .fireColor:before{
@@ -147,21 +150,6 @@ section div {
 	box-sizing: border-box;
 	animation:fire 2s ease infinite;
 }
-@keyframes fire{
-	0%{
-		background-color: rgb(255, 255, 255);
-		width:25px;
-	}
-	50%{
-		background-color: rgb(255, 0, 0);
-		width:22px;
-	}
-	100%{
-		background-color: rgb(255, 255, 255);
-		width:25px;
-	}
-}
-.ship{}
 .shipColor {
 	background-color:rgb(0, 153, 255);
 }
@@ -187,17 +175,6 @@ section div {
 	margin: 0;
 	box-sizing: border-box;
 	animation:shipMove 2s ease infinite;
-}
-@keyframes shipMove {
-	0%{
-		width:25px;
-	}
-	50%{
-		width:22px;
-	}
-	100%{
-		width:25px;
-	}
 }
 .flagColor{
 	background-color: rgb(255, 255, 100);
@@ -228,33 +205,37 @@ section div {
 	width: 100%;
 }
 .cloud {
-display: inline-block;
-position: relative;
-width: 3em; height: 3em; margin: 2em;
-background: #D5DEE9;
-border-width: 0.25em;
-border-style: solid;
-border-color: #6E839E;
-border-radius: 50% 50% 0 0;}
+	display: inline-block;
+	position: relative;
+	width: 3em; height: 3em; margin: 2em;
+	background: #D5DEE9;
+	border-width: 0.25em;
+	border-style: solid;
+	border-color: #6E839E;
+	border-radius: 50% 50% 0 0;
+}
 
 .cloud:before, .cloud:after {
-content: "";
-position: absolute; 
-bottom: -0.25em;
-background: inherit;
-border-width: 0.25em;
-border-style: solid;
-border-color: #6E839E;}
+	content: "";
+	position: absolute; 
+	bottom: -0.25em;
+	background: inherit;
+	border-width: 0.25em;
+	border-style: solid;
+	border-color: #6E839E;
+}
 .cloud:before {
-left: 80%; 
-width: 60%; height: 60%;
-border-left: none;
-border-radius: 50% 50% 50% 0;}
+	left: 80%; 
+	width: 60%; height: 60%;
+	border-left: none;
+	border-radius: 50% 50% 50% 0;
+}
 .cloud:after {
-right: 80%;
-width: 80%; height: 80%;
-border-right: none;
-border-radius: 50% 50% 0;}
+	right: 80%;
+	width: 80%; height: 80%;
+	border-right: none;
+	border-radius: 50% 50% 0;
+}
 .sky div:nth-child(1n){
 	left:10px;
 	-webkit-animation: skyMove 20s linear infinite;
@@ -266,34 +247,6 @@ border-radius: 50% 50% 0;}
 	-webkit-animation: skyMove2 20s linear infinite;
 	-o-animation: skyMove2 20s linear infinite;
 	animation: skyMove2 20s linear infinite;
-}
-@keyframes skyMove{
-	0%{
-		left:+48%;
-		top:-10px;
-	}
-	50%{
-		left:-48%;
-		top:+10px
-	}
-	100%{
-		left:+48%;
-		top:-10px;
-	}
-}
-@keyframes skyMove2{
-	0%{
-		left:-48%;
-		top:-0px;
-	}
-	50%{
-		left:52%;
-		top:-10px
-	}
-	100%{
-		left:-48%;
-		top:10px;
-	}
 }
 #sea {
 	background: linear-gradient( rgb(0, 153, 255),  rgb(255, 255, 255));
@@ -315,17 +268,7 @@ border-radius: 50% 50% 0;}
 	background-image: radial-gradient(circle at 10px -5px, #fff 13px, transparent 12px);
 	animation: waves 3s linear infinite;
 }
-@keyframes waves {
-	0%{
-		left: 0;
-	}
-	50%{
-		left: -10px;
-	}
-	100%{
-		left: 0;
-	}
-}
+/*блок для блокировки нажатий и эффекта затемнения поля*/
 #rightShade,
 #leftShade {
 	display: block;
@@ -338,7 +281,9 @@ border-radius: 50% 50% 0;}
 #rightShade{
 	display: none;
 }
-#yourName, #helpContainer {
+/*всплывающие окна*/
+#yourName, 
+#helpContainer {
 	text-align: center;
 	display: block;
 	position: fixed;
@@ -352,7 +297,8 @@ border-radius: 50% 50% 0;}
 #helpContainer {
 	display: none;
 }
-#yourName div, #helpContainer div{
+#yourName div, 
+#helpContainer div{
 	width: 300px;
 	height: 100px;
 	background: #aaa;
@@ -381,6 +327,87 @@ border-radius: 50% 50% 0;}
 }
 #showEnemy:hover{
 	opacity: 1;
+}
+/*анимация огня*/
+@keyframes fire{
+	0%{
+		background-color: rgb(255, 255, 255);
+		width:25px;
+	}
+	50%{
+		background-color: rgb(255, 0, 0);
+		width:22px;
+	}
+	100%{
+		background-color: rgb(255, 255, 255);
+		width:25px;
+	}
+}
+/*мерцающий текст*/
+@keyframes blinkText{
+	0% {
+		opacity:1;
+	}
+	70%{
+		opacity:0;
+	}
+	100%{
+		opacity:1;
+	}
+}
+/*анимация корабля*/
+@keyframes shipMove {
+	0%{
+		width:25px;
+	}
+	50%{
+		width:22px;
+	}
+	100%{
+		width:25px;
+	}
+}
+/*анимация облаков*/
+@keyframes skyMove{
+	0%{
+		left:+48%;
+		top:-10px;
+	}
+	50%{
+		left:-48%;
+		top:+10px
+	}
+	100%{
+		left:+48%;
+		top:-10px;
+	}
+}
+/*анимация облаков*/
+@keyframes skyMove2{
+	0%{
+		left:-48%;
+		top:-0px;
+	}
+	50%{
+		left:52%;
+		top:-10px
+	}
+	100%{
+		left:-48%;
+		top:10px;
+	}
+}
+/*анимация волн*/
+@keyframes waves {
+	0%{
+		left: 0;
+	}
+	50%{
+		left: -10px;
+	}
+	100%{
+		left: 0;
+	}
 }
 @media screen and (max-width: 980px) {
 	nav ul li {
