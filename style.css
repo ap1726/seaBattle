@@ -29,6 +29,7 @@ h6{
 }
 nav ul {
 	display: block;
+	padding:0;
 }
 /*кнопки навигации*/
 nav ul li {
